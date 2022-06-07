@@ -20,17 +20,13 @@ class Ui_Main_Window(QMainWindow):
         self.Top_menubar = QMenuBar(MainWindow) #新增一個QMenuBar命名為Top_menubar
         self.Top_menubar.setGeometry(QRect(0, 0, 600, 25)) #設定Top_menubar的尺寸
     #File_menu
-        self.File_menu = QMenu(self.Top_menubar)
-        self.File_menu.setTitle("File")
-        self.OpenFile_action = QAction(MainWindow)
-        self.OpenFile_action.setText("OpenFile")
-        self.OpenFile_action.setShortcut("Ctrl+O")
-        self.File_menu.addAction(self.OpenFile_action)
-        self.SaveFile_action = QAction(MainWindow)
-        self.SaveFile_action.setText("SaveFile")
-        self.SaveFile_action.setShortcut("Ctrl+S")
-        self.File_menu.addAction(self.SaveFile_action)
-        self.Top_menubar.addAction(self.File_menu.menuAction())
+        self.VideoCapture_menu = QMenu(self.Top_menubar)
+        self.VideoCapture_menu.setTitle("VideoCapture")
+        self.VideoCapture_action = QAction(MainWindow)
+        self.VideoCapture_action.setText("OPEN")
+        self.VideoCapture_action.setShortcut("Ctrl+V")
+        self.VideoCapture_menu.addAction(self.VideoCapture_action)
+        self.Top_menubar.addAction(self.VideoCapture_menu.menuAction())
     #File_menu
         MainWindow.setMenuBar(self.Top_menubar)
     #MenuBar#
