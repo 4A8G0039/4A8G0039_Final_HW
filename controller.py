@@ -1,3 +1,4 @@
+import time
 import cv2
 
 from PySide2.QtCore import *
@@ -15,6 +16,8 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self._window = Ui_Main_Window()
         self.mediapipe_module = mediapipe_module()
+        self.pTime = 0
+        self.cTime = 0
         self.resize_FixedSize = True
         self.VideoCapture_state = False
         self.mediapipe_HFP = [False, False, False]
@@ -44,8 +47,12 @@ class MainWindow(QMainWindow):
                 height, width = frame.shape[0], frame.shape[1]
                 scale = 1.5
                 frame = cv2.resize(frame, (int(width * scale), int(height * scale)), interpolation=cv2.INTER_CUBIC) #INTER_LINEAR
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame = cv2.flip(frame, 1)
+                self.cTime = time.time()
+                fps = 1 / (self.cTime - self.pTime)
+                self.pTime = self.cTime
+                cv2.putText(frame, f"FPS : {int(fps)}", (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 image = qimage2ndarray.array2qimage(frame)  #SOLUTION FOR MEMORY LEAK
                 self._window.Img_Lable.setPixmap(QPixmap.fromImage(image))
                 if self.resize_FixedSize:
